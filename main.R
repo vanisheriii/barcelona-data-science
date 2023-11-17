@@ -1,4 +1,6 @@
 #Primer checkout
+
+## Algunos comandos basicos para poder manejar
 "Hola Mundo"
 HolaMundo <- "Hola Mundo 2"
 HolaMundo
@@ -30,10 +32,30 @@ d1
 myFunction <- function(){
   print("MiFuncion")
 }
+##
+##
+##------------------------------------------------------------------------------
+##
+## Desde aca empieza los cambios para poder consumir el archivo epa-http.csv este ya se encuentra en el repositorio
 
+#Instalando los paquetes para poder procesar necesitamos por ahora los 3 siguentes
+install.packages("lubridate")
+install.packages("tidyverse")
+install.packages("stringr")
 
+#Leer el archivo epa http.cvs
 library(readr)
 epa_http <- read_table("epa-http.csv", col_names = FALSE)
+#Ver el archivo
 View(epa_http)
 
+#Ver el tipo de dato de la variable epa http
+class(epa_http)
+
+## Listar la segunda columna
+epa_http[,2]
+
+
+
+epa_http$X2
 
