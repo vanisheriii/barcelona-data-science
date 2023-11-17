@@ -55,14 +55,10 @@ colnames(epa_http)[4]<-"uri"
 colnames(epa_http)[5]<-"protocolo"
 colnames(epa_http)[6]<-"respuestaHttp"
 colnames(epa_http)[7]<-"bytes"
-View(epa_http)
+#View(epa_http)
 
-#Ver el tipo de dato de la variable epa http
-#class(epa_http)
 
 ## Listar la segunda columna en formato de fecha
-
-
 
 #Columna 2 convertir a formato fecha
 epa_http$dataTimeStamp <- as.POSIXct(epa_http$dataTimeStamp,format="[%d:%H:%M:%S]",tz = "utc")  
@@ -73,25 +69,39 @@ epa_http$bytes <-  epa_http$bytes <- ifelse(is.na(epa_http$bytes), 0, epa_http$b
 epa_http$bytes <-  as.numeric(epa_http$bytes)
 
 
-#Primera pregunta 1
+#Primera pregunta 1  Cuales son las dimensiones del dataset cargado (número de filas y columnas)
 dim(epa_http)
 
-#Segunda pregunta calcular el promedio
+#Primera pregunta  Valor medio de la columna Bytes
 mean(epa_http$bytes)
 
 
-## Pregunta 1
+## Pregunta 2
 var <-   stringr::str_like(epa_http$origen,"%.edu%", ignore_case = TRUE)
 contador_true <- sum(var)
 contador_true
 
-#Pregunta 1.2
+#Pregunta 2 otra forma
 
-var <- grepl(".edu$", epa_http$origen, ignore.case = TRUE)
+var <- grepl(".edu", epa_http$origen, ignore.case = TRUE)
 conteo <- sum(var)
 print(conteo)
 
+#Pregunta 3
+epa_http$metodoHttp <- gsub('^"|"$', '', epa_http$metodoHttp)
+epa_http$protocolo <- gsub('^"|"$', '', epa_http$protocolo)
+# Obtengo los resultados agrupados por Fecha-Hora y ordenados por cantidad de peticiones de mayor a menor
+library(dplyr)
+epa_http$dataTimeStamp <- as.POSIXct(epa_http$dataTimeStamp, format="%Y-%m-%d %H:%M:%S")
+epa_http <- epa_http %>%  mutate(timestamp_agrupado = format(dataTimeStamp, "%Y-%m-%d %H:00:00"))
 
+# Agrupar por la nueva columna y contar las peticiones GET
+resultados <- epa_http %>% filter(metodoHttp == "GET") %>% group_by(timestamp_agrupado) %>%  summarise(cantidad_peticiones = n())
+
+# Imprimir los resultados
+resultados <- resultados %>% 
+  arrange(desc(cantidad_peticiones))
+print(resultados, n = nrow(resultados))
 
 
 #Pregunta 4
