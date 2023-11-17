@@ -116,3 +116,7 @@ View(p42)
 
 
 #Pregunta 5
+
+
+p5  <- dplyr::filter(epa_http,stringr::str_like(uri,"/",ignore_case = TRUE))
+View(p5)
