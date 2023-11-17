@@ -46,6 +46,9 @@ install.packages("dplyr")
 
 #Leer el archivo epa http.cvs
 library(readr)
+library(dplyr)
+
+
 epa_http <- read_table("epa-http.csv", col_names = FALSE)
 #cambiar nombre de los columnas
 colnames(epa_http)[1]<-"origen"
@@ -91,7 +94,6 @@ print(conteo)
 epa_http$metodoHttp <- gsub('^"|"$', '', epa_http$metodoHttp)
 epa_http$protocolo <- gsub('^"|"$', '', epa_http$protocolo)
 # Obtengo los resultados agrupados por Fecha-Hora y ordenados por cantidad de peticiones de mayor a menor
-library(dplyr)
 epa_http$dataTimeStamp <- as.POSIXct(epa_http$dataTimeStamp, format="%Y-%m-%d %H:%M:%S")
 epa_http <- epa_http %>%  mutate(timestamp_agrupado = format(dataTimeStamp, "%Y-%m-%d %H:00:00"))
 
@@ -106,11 +108,9 @@ print(resultados, n = nrow(resultados))
 
 #Pregunta 4
 
-var <-   stringr::str_like(epa_http$origen,"%.edu%", ignore_case = TRUE)
-var
 
 View(epa_http)
-p4  <- epa_http[grepl(".edu$", epa_http$origen),]
+p4  <- epa_http[grepl(".edu", epa_http$origen),]
 View(p4)
 unique(p4$origen)
 p4 <- p4[grepl(".txt$", p4$uri),]
