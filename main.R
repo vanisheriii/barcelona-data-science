@@ -58,8 +58,29 @@ class(epa_http)
 
 #Columna 2 
 epa_http$X2 <- as.POSIXct(epa_http$X2,format="[%d:%H:%M:%S]",tz = "utc")  
+#Define 0 si es NA
+epa_http$X7 <-  epa_http$X7 <- ifelse(is.na(epa_http$X7), 0, epa_http$X7)
+#Convierte los valores a numerico
 epa_http$X7 <-  as.numeric(epa_http$X7)
+#Calcular la media de la columna 7
+mean(epa_http$X7)
+min(epa_http$X7)
+max(epa_http$X7)
+#cambiar nombre de los columnas
+colnames(epa_http)
+colnames(epa_http)[1]<-"origen"
+colnames(epa_http)[2]<-"dataTimeStamp"
+colnames(epa_http)[3]<-"metodoHttp"
+colnames(epa_http)[4]<-"uri"
+colnames(epa_http)[5]<-"protocolo"
+colnames(epa_http)[6]<-"respuestaHttp"
+colnames(epa_http)[7]<-"bytes"
 View(epa_http)
+
+## Pregunta 2 
+var <- stringr::str_like(epa_http$Origen,"%edu", ignore_case = TRUE)
+var
+
 #Primera pregunta
 dim(epa_http)
 
