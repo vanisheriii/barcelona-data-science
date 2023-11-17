@@ -127,6 +127,4 @@ View(p5)
 p6  <- dplyr::filter(epa_http,!stringr::str_like(protocolo,"%HTTP/0.2%",ignore_case = TRUE))
 dim(p6)
 dim(epa_http)
-var6 <- grepl("0.2$", p6, ignore.case = TRUE)
-var6
-View(p6)
+
