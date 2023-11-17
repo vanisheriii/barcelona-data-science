@@ -92,6 +92,8 @@ conteo <- sum(var)
 print(conteo)
 
 
+
+
 #Pregunta 4
 
 var <-   stringr::str_like(epa_http$origen,"%.edu%", ignore_case = TRUE)
