@@ -25,8 +25,15 @@ d1 <- data.frame(Columna1 =  c(1,3,5,7,9),
                  stringsAsFactors  = TRUE)
 
 d1
-## Apply aplica funciones a un array o suplay
+## Apply apical functions a un array o array
 
 myFunction <- function(){
   print("MiFuncion")
 }
+
+
+library(readr)
+epa_http <- read_table("epa-http.csv", col_names = FALSE)
+View(epa_http)
+
+
