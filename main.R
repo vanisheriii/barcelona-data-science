@@ -120,3 +120,13 @@ View(p42)
 
 p5  <- dplyr::filter(epa_http,stringr::str_like(uri,"/",ignore_case = TRUE))
 View(p5)
+
+
+#Pregunta 6
+
+p6  <- dplyr::filter(epa_http,!stringr::str_like(protocolo,"%HTTP/0.2%",ignore_case = TRUE))
+dim(p6)
+dim(epa_http)
+var6 <- grepl("0.2$", p6, ignore.case = TRUE)
+var6
+View(p6)
