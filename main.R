@@ -52,10 +52,15 @@ View(epa_http)
 #Ver el tipo de dato de la variable epa http
 class(epa_http)
 
-## Listar la segunda columna
-epa_http[,2]
+## Listar la segunda columna en formato de fecha
 
 
 
-epa_http$X2
+#Columna 2 
+epa_http$X2 <- as.POSIXct(epa_http$X2,format="[%d:%H:%M:%S]",tz = "utc")  
+epa_http$X7 <-  as.numeric(epa_http$X7)
+View(epa_http)
+#Primera pregunta
+dim(epa_http)
+
 
