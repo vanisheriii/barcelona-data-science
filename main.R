@@ -1,42 +1,9 @@
-#Primer checkout
-
-## Algunos comandos basicos para poder manejar
-"Hola Mundo"
-HolaMundo <- "Hola Mundo 2"
-HolaMundo
-
-vara <- "Hola"
-varb <- 1:100
-print(varb)
-for (i in 1:length(varb)){
-  aux <- paste(vara,varb[i], sep = "")
-  print(aux)
-}
-
-m1  <- matrix(1:12,ncol = 3,nrow = 4) #matrix
-m1
-
-m1[2,]
-m1[4,]
-m1[3,]
-
-
-d1 <- data.frame(Columna1 =  c(1,3,5,7,9),
-                 Columna2 =  c("a","b","c","d","F"),
-                 Columna3 =  c(TRUE,FALSE,TRUE,TRUE,TRUE),
-                 stringsAsFactors  = TRUE)
-
-d1
-## Apply apical functions a un array o array
-
-myFunction <- function(){
-  print("MiFuncion")
-}
 ##
 ##
 ##------------------------------------------------------------------------------
 ##
-## Desde aca empieza los cambios para poder consumir el archivo epa-http.csv este ya se encuentra en el repositorio
+##
+## Preguntas
 
 #Instalando los paquetes para poder procesar necesitamos por ahora los 3 siguentes
 install.packages("lubridate")
@@ -91,6 +58,7 @@ conteo <- sum(var)
 print(conteo)
 
 #Pregunta 3
+
 epa_http$metodoHttp <- gsub('^"|"$', '', epa_http$metodoHttp)
 epa_http$protocolo <- gsub('^"|"$', '', epa_http$protocolo)
 # Obtengo los resultados agrupados por Fecha-Hora y ordenados por cantidad de peticiones de mayor a menor
@@ -114,7 +82,8 @@ p4  <- epa_http[grepl(".edu", epa_http$origen),]
 View(p4)
 unique(p4$origen)
 p4 <- p4[grepl(".txt$", p4$uri),]
-sum(p4$uri)
+c4 <- sum(p4$bytes)
+c4
 View(p4)
 
 #Pregunta 4 segunda opcion
@@ -124,19 +93,24 @@ p42
 p42  <- dplyr::filter(epa_http,stringr::str_like(origen,"%edu$%",ignore_case = TRUE))
 View(p42)
 p42 <- p42[grepl(".txt$", p42$uri),]
+c4 <- sum(p42$bytes)
+c4
 View(p42)
 
 
 #Pregunta 5
-
-
 p5  <- dplyr::filter(epa_http,stringr::str_like(uri,"/",ignore_case = TRUE))
+n5 <- count(p5)
+n5
 View(p5)
 
 
 #Pregunta 6
-
 p6  <- dplyr::filter(epa_http,!stringr::str_like(protocolo,"%HTTP/0.2%",ignore_case = TRUE))
+n6Tot <- count(epa_http)
+n6Diff <- count(p6)
+
+print(as.numeric(n6Tot) - as.numeric(n6Diff))
+
 dim(p6)
 dim(epa_http)
-
