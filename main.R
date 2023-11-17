@@ -76,7 +76,6 @@ print(resultados, n = nrow(resultados))
 
 #Pregunta 4
 
-
 View(epa_http)
 p4  <- epa_http[grepl(".edu", epa_http$origen),]
 View(p4)
